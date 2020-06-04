@@ -70,31 +70,26 @@ public abstract class AbstractNode<T> implements Node<T> {
 
 //modify
 
-    /** {@inheritDoc} */
     @Override
     public void setParentAs(T data) {
         setParentAs(create(data));
     }
 
-    /** {@inheritDoc} */
     @Override
     public void removeParent() {
         helperRemove(this); //removes self from parent's tree
     }
 
-    /** {@inheritDoc} */
     @Override
     public Node<T> addChild(T data) {
         return helperAddChild(create(data), defaultAddIndex());
     }
 
-    /** {@inheritDoc} */
     @Override
     public Node<T> addChild(Node<T> node) {
         return helperAddChild(node, defaultAddIndex());
     }
 
-    /** {@inheritDoc} */
     @Override
     public Node<T> addChild(T data, int index) {
        return helperAddChild(create(data), index);
@@ -105,7 +100,6 @@ public abstract class AbstractNode<T> implements Node<T> {
        return helperAddChild(node, index);
     }
 
-    /** {@inheritDoc} */
     @Override
     public Node<T> removeChild(int index) {
         Node<T> target = hGetChildNodes().remove(index);
@@ -113,7 +107,6 @@ public abstract class AbstractNode<T> implements Node<T> {
         return target;
     }
 
-    /** {@inheritDoc} */
     @Override
     public Node<T> removeChild(Predicate<? super Node<T>> pred) {
         Node<T> target = ListUtil.get(pred, hGetChildNodes());
@@ -121,7 +114,6 @@ public abstract class AbstractNode<T> implements Node<T> {
         return helperRemove(target);
     }
 
-    /** {@inheritDoc} */
     @Override
     public List<Node<T>> removeAllChildren(Predicate<? super Node<T>> pred) {
         List<Node<T>> targets = ListUtil.getIf(pred, hGetChildNodes());
@@ -152,8 +144,6 @@ public abstract class AbstractNode<T> implements Node<T> {
         return this;
     }
 
-
-    /** {@inheritDoc} */
     public void forEach(Consumer<? super Node<T>> cons) {
         Node<T> head = getTreeHeadNode();
         cons.accept(head);
@@ -178,7 +168,6 @@ public abstract class AbstractNode<T> implements Node<T> {
         return treeHead;
     }
 
-    /** {@inheritDoc} */
     @Override
     public List<T> getChildData() {
         List<T> list = new ArrayList<>();
@@ -209,7 +198,6 @@ public abstract class AbstractNode<T> implements Node<T> {
         return result.get();
     }
 
-    /** {@inheritDoc} */
     @Override
     public List<Node<T>> getNodeIf(Predicate<? super Node<T>> pred) {
         return helperGetIf((node, list) -> {
@@ -218,12 +206,10 @@ public abstract class AbstractNode<T> implements Node<T> {
         });
     }
 
-    /** {@inheritDoc} */
     public Node<T> getChild(Predicate<? super Node<T>> pred) { //requires being added
        return helperGet(pred, getChildNodes());
     }
 
-    /** {@inheritDoc} */
     @Override
     public List<Node<T>> getChildIf(Predicate<? super Node<T>> pred) {
         return helperGetIf(pred, getChildNodes());
@@ -231,7 +217,6 @@ public abstract class AbstractNode<T> implements Node<T> {
 
     //descending
 
-    /** {@inheritDoc} */
     @Override
     public List<Node<T>> getDescendingNodes() {
         return helperGetDescending(this, Function.identity());
@@ -257,13 +242,11 @@ public abstract class AbstractNode<T> implements Node<T> {
         return helperGetDescendingIf(this, Function.identity(), pred);
     }
 
-    /** {@inheritDoc} */
     @Override
     public List<T> getDescendingIf(Predicate<? super Node<T>> pred) {
         return helperGetDescendingIf(this, Node::getData, pred);
     }
 
-    /** {@inheritDoc} */
     @Override
     public List<T> getDataIf(Predicate<? super Node<T>> pred) {
         return helperGetIf((node, list) -> {

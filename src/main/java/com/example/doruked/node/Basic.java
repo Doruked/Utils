@@ -562,33 +562,26 @@ public interface Basic {
      */
     interface CompatibleNode<TData, TNode extends CompatibleNode<TData, TNode>> extends TreeNode<TData,TNode>, DataNode<TData,TNode> {
 
-
-        /** {@inheritDoc */
         default boolean isChild() {
             return getParentNode() != null;
         }
 
-        /** {@inheritDoc */
         default boolean isLeaf() {
             return ListUtil.emptyOrNull(getChildNodes());
         }
 
-        /** {@inheritDoc */
         default boolean isHead() {
             return getParentNode() == null;
         }
 
-        /** {@inheritDoc */
         default boolean isParent() {
             return !getChildNodes().isEmpty();
         }
 
-        /** {@inheritDoc */
         default TData getTreeHeadData(){
            return getTreeHeadNode().getData();
         }
 
-        /** {@inheritDoc */
         default TData getParentData(){
             return getParentNode().getData();
         }
