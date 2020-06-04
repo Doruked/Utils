@@ -1,4 +1,4 @@
-package com.example.doruked.opfunctionals;
+package com.example.doruked.ofunctionals;
 
 import java.util.Optional;
 import java.util.function.Function;
