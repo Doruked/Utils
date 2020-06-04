@@ -10,10 +10,11 @@ import java.util.function.Consumer;
  */
 public interface Lambda {
 
-
     void execute();
 
-//consumer
+
+//factories
+
    static <T> Lambda build(T object, Consumer<T> consumer){
         return ()-> consumer.accept(object);
     }
