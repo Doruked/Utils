@@ -1,6 +1,6 @@
 package com.example.doruked;
 
-public interface ExceptionalLambda<T extends Exception> {
+public interface LambdaEX<T extends Exception> {
 
 
     void execute() throws T;
