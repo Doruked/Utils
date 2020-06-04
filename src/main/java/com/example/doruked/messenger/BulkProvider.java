@@ -12,7 +12,11 @@ import java.util.List;
  * (1) how long a message is stored (2) how many messages are stored (3) storage order
  * (4) whether messages persist after being requested
  * @param <T> the type belong to the message
+ * @deprecated this package seems to be redundant with the {@link com.example.doruked.responder} package.
+ * Further, the generics may need to change to allow the sent type to be different from the
+ * received type for this to be of good use.
  */
+@Deprecated
 public interface BulkProvider<T> extends MessageProvider<T> {
 
     /**

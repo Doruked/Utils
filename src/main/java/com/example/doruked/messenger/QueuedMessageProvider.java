@@ -17,7 +17,9 @@ import java.util.concurrent.LinkedBlockingQueue;
  * will be backed by a {@link LinkedBlockingQueue}. This is open to change for another viable alternative.
  *
  * @param <T> the type belonging to the message
+ *
  */
+@Deprecated
 public class QueuedMessageProvider<T> implements MessageProvider<T> {
 
     private final BlockingQueue<T> messages;

@@ -13,7 +13,11 @@ import java.util.function.Supplier;
  * If you are storing multiple messages consider {@link BulkMessageProvider<T>}
  *
  * @param <T> the type belong to the message
+ * @deprecated this package seems to be redundant with the {@link com.example.doruked.responder} package.
+ * Further, the generics may need to change to allow the sent type to be different from the
+ * received type for this to be of good use.
  */
+@Deprecated
 public interface MessageProvider<T> {
 
     /**
