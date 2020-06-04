@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.function.Supplier;
 
 //when editing this documentation for clarity consider updating QueuedMessageProvider who is fairly similar
 
@@ -58,5 +59,15 @@ public class BulkMessageProvider<T> implements BulkProvider<T> {
     public void createMessage(T message) {
         if(message == null) throw new NullPointerException("Received message is null");
         bulk.add(message);
+    }
+
+    @Override
+    public T send() {
+        throw new UnsupportedOperationException("This method is not implemented yet");
+    }
+
+    @Override
+    public void createMessage(Supplier<T> supplier) {
+        throw new UnsupportedOperationException("This method is not implemented yet");
     }
 }
