@@ -13,7 +13,7 @@ import java.util.List;
  * (4) whether messages persist after being requested
  * @param <T> the type belong to the message
  */
-public interface BulkSender<T> extends MessageCreator<T> {
+public interface BulkProvider<T> extends MessageCreator<T> {
 
     /**
      * Returns a {@code list} of messages from this class. If no messages are present an empty list or documented

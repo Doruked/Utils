@@ -18,7 +18,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  *
  * @param <T> the type belonging to the message
  */
-public class QueuedMessageProvider<T> implements MessageSender<T> {
+public class QueuedMessageProvider<T> implements MessageProvider<T> {
 
     private final BlockingQueue<T> messages;
 

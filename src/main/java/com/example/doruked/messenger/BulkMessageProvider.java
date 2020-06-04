@@ -20,7 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  *
  * @param <T> the type belonging to the message
  */
-public class BulkMessageProvider<T> implements BulkSender<T> {
+public class BulkMessageProvider<T> implements BulkProvider<T> {
 
     private final BlockingQueue<T> bulk;
 

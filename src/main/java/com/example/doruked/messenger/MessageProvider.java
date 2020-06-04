@@ -8,11 +8,11 @@ package com.example.doruked.messenger;
  * are determined by the implementation and should be documented. Here are some to consider:
  * (1) how long a message is stored (2) whether messages persist after being requested.
  *
- * If you are storing multiple messages consider {@link BulkMessageProvider <T>}
+ * If you are storing multiple messages consider {@link BulkMessageProvider<T>}
  *
  * @param <T> the type belong to the message
  */
-public interface MessageSender<T> extends MessageCreator<T> {
+public interface MessageProvider<T> extends MessageCreator<T> {
 
     /**
      * returns a message from this class.If no messages are present a documented value should be returned.
