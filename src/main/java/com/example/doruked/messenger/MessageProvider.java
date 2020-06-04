@@ -1,5 +1,7 @@
 package com.example.doruked.messenger;
 
+import java.util.function.Supplier;
+
 /**
  * This interface is capable of creating messages from received values and publishing that information to
  * those who request it.
@@ -12,11 +14,32 @@ package com.example.doruked.messenger;
  *
  * @param <T> the type belong to the message
  */
-public interface MessageProvider<T> extends MessageCreator<T> {
+public interface MessageProvider<T> {
 
     /**
      * returns a message from this class.If no messages are present a documented value should be returned.
      * @return a messages from this class or a documented value if no messages are present
      */
     T send();
+
+
+    /**
+     * This method creates a message from the specified {@code value}.
+     *
+     * @param value the value to create a message from.
+     * @throws NullPointerException if value is null and null is not accepted
+     */
+    void createMessage(T value);
+
+    /**
+     * This method creates a message from the specified {@code supplier}.
+     *
+     * @param supplier the message supplier
+     * @throws NullPointerException if supplier is null and null is not accepted
+     * @implSpec by default, thiss method is delegates to {@link #createMessage(Object)}.
+     * However, it is not unreasonable to instead store the supplier for later retireval.
+     */
+    default void createMessage(Supplier<T> supplier) {
+        createMessage(supplier.get());
+    }
 }
