@@ -8,7 +8,10 @@ import java.util.function.Supplier;
  * @implSpec this interface does not enforce or require that these messages be stored
  *           or made available through this interface.
  * @param <T> the type belonging to the message
+ * @deprecated could be named better, given that it does not explicitly publish any messages.
+ * Doesn't seem worth keeping a small poorly named interface.
  */
+@Deprecated
 public interface MessageCreator<T> {
 
     /**
