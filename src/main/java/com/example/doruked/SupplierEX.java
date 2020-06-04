@@ -14,4 +14,5 @@ package com.example.doruked;
 public interface SupplierEX<R, TException extends Exception> {
 
     R get() throws TException;
+
 }
