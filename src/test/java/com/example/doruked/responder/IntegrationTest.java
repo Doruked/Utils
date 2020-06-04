@@ -12,14 +12,13 @@ public class IntegrationTest {
 
 
     public void test_integration_by_checking_observer_returns_the_expected_response() {
-        //create observer that simply adds an object to it's received context. This context is later returned
         Observer<List<Object>, List<Object>> observer = (e) -> { //an observer that adds a new object to notified list
             e.add(new Object());
             return e;
         };
         List<Object> info = new ArrayList<>();
 
-        try { //mocked methods throw exceptions.
+        try {
             @SuppressWarnings("unchecked")
             Mediator<List<Object>, List<Object>, List<Object>> mediator = (Mediator<List<Object>, List<Object>, List<Object>>) Mockito.mock(Mediator.class);
             Mockito.when(mediator.notify(info)).thenReturn(observer.process(info));
