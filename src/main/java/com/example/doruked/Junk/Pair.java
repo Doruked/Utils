@@ -2,6 +2,13 @@ package com.example.doruked.Junk;
 
 import java.util.AbstractMap;
 
+/**
+ *
+ * @deprecated  redundant with {@link com.example.doruked.Pair}
+ * @param <K>
+ * @param <V>
+ */
+@Deprecated
 public class Pair<K,V>  implements AbstractMap.Entry<K,V>{
 
     private final AbstractMap.Entry<K,V> deleg;

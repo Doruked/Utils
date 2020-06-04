@@ -35,7 +35,10 @@ import java.util.function.Function;
  * this object may be modified in unaccounted ways. (2) When initializing this class through it's public constructor,
  * the underlying map will reflect the type passed in. However, on subsequent modifications (i.e. calls to
  * non-constructor methods that return a ImmutableMap) the map returned will be backed by a {@link HashMap}.
+ * @deprecated old class that requires some reexamining. In addition, I'm sure
+ * there are existing implementation of an immutable map.
  */
+@Deprecated
 public class ImmutableMap<K, V, R> {
 
     private R result;

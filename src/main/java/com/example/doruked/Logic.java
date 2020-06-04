@@ -1,5 +1,12 @@
 package com.example.doruked;
 
+
+/**
+ *
+ * @deprecated doesn't doesn't ontian any usable code and is
+ * vauge in purpose. It's an old class
+ */
+@Deprecated
 public class Logic {
 
 

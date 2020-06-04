@@ -1,5 +1,11 @@
 package com.example.doruked;
 
+/**
+ *
+ * @deprecated never really used and {@link UnsupportedOperationException}
+ * can be used instead, with a message.
+ */
+@Deprecated
 public class DefaultBehaviorException  extends UnsupportedOperationException{
 
     public DefaultBehaviorException() {
