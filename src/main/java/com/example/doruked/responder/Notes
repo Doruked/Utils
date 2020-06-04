@@ -4,13 +4,13 @@
 How to Use this Package -
 
 You Need:
-Context
+Context (you define)
 Observer
-Mediator
+Poller/Mediator
 
 choose desired implementation of each interface
 
-WorkFlow
+Overview:
 
 (1)Something(you) produces a Context
 (2)Context Given to Mediator
@@ -20,36 +20,14 @@ WorkFlow
 5.) Response is retrievable from Mediator
 
 
-General:
-I find it easy to create my own implementation of Context
-than using a prebuilt implementation
-
-Additional Notes:
-You may need to write you're own "ContextParser" depending on how
-you've stored your context. The parser helps unpacking contexts
-
 Use Case:
 
 You have some class that produces info (Context)
 You would like to inform another class of this info.
-The informed class would, potentially, like to make changes to this info
-You would like pass the updated info to the original info producer.
-
+The informed class would, potentially, like to make changes to this info.
+You also would like pass the updated info to the original info producer.
 
 
 
 End Notes:
 This only represents a recommendation.
-
-
-
-
-
-
-
-
-Issues I faced:
-
-all observers are able to submit results immediately
-It is the choice of the Mediator as to whether it
-calls the method that waits
