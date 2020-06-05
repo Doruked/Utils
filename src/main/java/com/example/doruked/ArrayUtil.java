@@ -18,14 +18,8 @@ public class ArrayUtil {
      * @return a random member of the array or null if the array is empty
      * @throws NullPointerException if values is null
      */
-    public static Object randomMember(Object[] values){
-        if(values == null) throw new NullPointerException();
-        int size = values.length;
-        if(size < 1) return null;
-        else {
-            int target = ThreadLocalRandom.current().nextInt(size);
-            return values[target];
-        }
+    public static Object randomMember(Object[] values) {
+        return randomMember(values, ThreadLocalRandom.current());
     }
 
 
