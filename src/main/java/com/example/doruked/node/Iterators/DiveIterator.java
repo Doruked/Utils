@@ -4,6 +4,7 @@ import com.example.doruked.ListUtil;
 import com.example.doruked.node.Basic;
 import com.example.doruked.node.mynodes.Node;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -46,9 +47,10 @@ public class DiveIterator<TNode extends Basic.CompatibleNode<?, TNode>> implemen
 
         if (next != null) {
             //C0
-            target = current.getChildNodes().get(0);
-            if (target != null) return helperSetNext(target);
-
+            if(hasChildren(current)) {
+                target = current.getChildNodes().get(0);
+                if (target != null) return helperSetNext(target);
+            }
             //S+1
             target = helperNextSibling(current);
             if (target != null) return helperSetNext(target);
@@ -77,13 +79,20 @@ public class DiveIterator<TNode extends Basic.CompatibleNode<?, TNode>> implemen
     }
 
     private TNode helperNextSibling(TNode target) {
-        int index = ListUtil.getReferenceIndex(target.getSiblingNodes(), target);
-        return target.getSiblingNodes().get(index + 1);
+        List<TNode> siblings = target.getSiblingNodes();
+        int index = ListUtil.getReferenceIndex(siblings, target);
+
+        if (index > siblings.size() - 2) return null;
+        else return siblings.get(index + 1);
     }
 
     private TNode helperSetNext(TNode target) {
         TNode ret = next;
         next = target;
         return ret;
+    }
+
+    private boolean hasChildren(TNode node){
+       return ListUtil.notEmptyOrNull(node.getChildNodes());
     }
 }
