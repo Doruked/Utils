@@ -114,6 +114,10 @@ public class DiveIteratorTest {
         return iterator.next();
     }
 
+    /**
+     * @deprecated redundant with {@link ListUtil#trimToReference(List, Object)}
+     */
+    @Deprecated
     private <T> List<T> trimToReference(List<T> list, T reference) {
         if (list.size() < 1) return Collections.emptyList();
         List<T> removed = new ArrayList<>();
@@ -136,11 +140,9 @@ public class DiveIteratorTest {
     }
 
     /**
-     * @param list
-     * @param bound inclusive bound
-     * @param <T>
-     * @return
+     * @deprecated redundant with {@link ListUtil#trimTo(List, Object)}
      */
+    @Deprecated
     private <T> List<T> trim(List<T> list, int bound) {
         List<T> removed = new ArrayList<>();
         while (bound != list.size() - 1) {
@@ -150,6 +152,10 @@ public class DiveIteratorTest {
         return removed;
     }
 
+    /**
+     * @deprecated redundant with {@link #trimTo(Node)}
+     */
+    @Deprecated
     private <T> void ensureNodeIsLastChild(Node<T> initial) {
         int i = indexOfReference(initial);
         List<Node<T>> siblings = initial.getSiblingNodes();
