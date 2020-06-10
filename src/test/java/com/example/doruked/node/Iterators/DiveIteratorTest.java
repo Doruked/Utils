@@ -124,12 +124,9 @@ public class DiveIteratorTest {
         return initial;
     }
 
-    private <T> void trimTo(Node<T> initial) {
-        int i = indexOfReference(initial);
-        List<Node<T>> siblings = initial.getSiblingNodes();
-        while (i != siblings.size() - 1) {
-            siblings.remove(siblings.size() - 1);
-        }
+    private <T> void trimTo(Node<T> reference) {
+        List<Node<T>> siblings = reference.getSiblingNodes();
+        ListUtil.trimToReference(siblings, reference);
     }
 
     private Node<Integer> getNextOrAdd(Node<Integer> node) {
