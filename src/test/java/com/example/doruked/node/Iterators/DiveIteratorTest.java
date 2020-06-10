@@ -7,6 +7,7 @@ import com.example.doruked.node.mynodes.Node;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -93,6 +94,21 @@ public class DiveIteratorTest {
 
     @Test
     public void hasNext() {
+    }
+
+    @Test
+    public void test_hasNext_returns_false_when_next_does_not_exist() {
+        TestNode<Integer> single = new TestNode<>(0, null, new ArrayList<>());
+        iterator = new DiveIterator<>(single);
+        iterator.next();
+
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void test_that_clearData_is_Unsupported() {
+        initIterator(head);
+        iterator.clearData();
     }
 
     @Test
