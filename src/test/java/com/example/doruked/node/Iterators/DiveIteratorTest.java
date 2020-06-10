@@ -60,7 +60,7 @@ public class DiveIteratorTest {
         //step 1: set initial childless node
         Node<Integer> initial = findChildlessNode(head);
 
-        //step 2: ensure initial has next sibling
+        //step 2: ensure initial does NOT have next sibling
         trimTo(initial);
 
         //step 3: ensure parent has next sibling
