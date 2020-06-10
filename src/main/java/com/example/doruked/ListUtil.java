@@ -299,6 +299,61 @@ public final class ListUtil {
         return removed;
     }
 
+    /**
+     * Removes from the specified {@code list} the elements that occur
+     * after the specified {@code bound}
+     *
+     * @param list  the list to remove elements from
+     * @param bound the object who's index is the bound (inclusive)
+     * @param <T>   the type of elements contained by list
+     * @return the removed elements
+     * @throws NullPointerException if list is null
+     * @implSpec if the {@code bound} occurs multiple times in the {@code list},
+     * the first occurrence is used.
+     */
+    public static <T> List<T> trimTo(List<T> list, T bound){
+        int i = list.indexOf(bound);
+        return trimToIndex(list,i);
+    }
+
+    /**
+     * Removes from the specified {@code list} the elements that occur
+     * after the specified {@code reference}
+     *
+     * @param list  the list to remove elements from
+     * @param reference the object who's index is the bound (inclusive)
+     * @param <T>   the type of elements contained by list
+     * @return the removed elements
+     * @throws NullPointerException if list is null
+     * @implSpec if the {@code bound} occurs multiple times in the {@code list},
+     * the first occurrence is used.
+     */
+    public static <T> List<T> trimToReference(List<T> list, T reference){
+        int i = ListUtil.getReferenceIndex(list, reference);
+        return trimToIndex(list,i);
+    }
+
+    /**
+     * Removes from the specified {@code list} the elements that occur
+     * after the specified {@code bound}
+     *
+     * @param list the list to remove elements from
+     * @param bound the inclusive bound
+     * @param <T> the type of elements contained by list
+     * @return the removed elements
+     * @throws NullPointerException if list is null
+     * @throws IndexOutOfBoundsException
+     */
+    public static <T> List<T> trimToIndex(List<T> list, int bound){
+       if(bound < 0 || bound > list.size()) throw new IndexOutOfBoundsException();
+        List<T> removed = new ArrayList<>();
+        while (bound != list.size() - 1) {
+            T e = list.remove(list.size() - 1);
+            removed.add(e);
+        }
+        return removed;
+    }
+
 //Add
 
     /**
