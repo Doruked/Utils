@@ -48,23 +48,10 @@ public class DiveIteratorTest {
     @Test
     public void test_next_returns_next_sibling_as_second_option() {
         //step 1: set initial to childless node
-        Node<Integer> initial = head;
-        List<Node<Integer>> children = initial.getChildNodes();
-        while (children.size() > 0 && children.get(0) != null) {
-            initial = children.get(0);
-            children = initial.getChildNodes();
-        }
+        Node<Integer> initial = findChildlessNode(head);
 
-        //set expected
-        Node<Integer> expected;
-
-        int i = indexOfReference(initial);
-        List<Node<Integer>> siblings = initial.getSiblingNodes();
-        if (i > siblings.size() - 2) {
-            //modify tree so next sibling exists
-            expected = new TestNode<>(-1, initial.getParentNode(), null);
-            siblings.add(expected);
-        } else expected = siblings.get(i + 1);
+        //step 2: ensure initial has next sibling
+        Node<Integer> expected = getNextOrAdd(initial);
 
         //test
         Node<Integer> next = initIterator(initial);
@@ -74,28 +61,14 @@ public class DiveIteratorTest {
     @Test
     public void test_next_returns_parents_next_sibling_as_third_option() {
         //step 1: set initial childless node
-        Node<Integer> initial = head;
-        List<Node<Integer>> children = initial.getChildNodes();
-        while (children.size() > 0 && children.get(0) != null) {
-            initial = children.get(0);
-            children = initial.getChildNodes();
-        }
+        Node<Integer> initial = findChildlessNode(head);
+
         //step 2: ensure initial is the last child
-        int i = indexOfReference(initial);
-        List<Node<Integer>> siblings = initial.getSiblingNodes();
-        while (i != siblings.size() - 1) {
-            siblings.remove(siblings.size() - 1);
-        }
+        trimTo(initial);
 
         //step 3: ensure parent has next sibling
         Node<Integer> parent = initial.getParentNode();
-        int parentIndex = indexOfReference(parent);
-        List<Node<Integer>> parSiblings = parent.getSiblingNodes();
-        if (parentIndex == parSiblings.size() - 1) {
-            parSiblings.add(new TestNode<>(-1, parent.getParentNode(), null));
-        }
-        //set expected
-        Node<Integer> expected = parSiblings.get(parentIndex + 1);
+        Node<Integer> expected = getNextOrAdd(parent);
 
         //test
         Node<Integer> next = initIterator(initial);
@@ -105,35 +78,18 @@ public class DiveIteratorTest {
     @Test
     public void test_next_returns_grandparents_or_higher_next_sibling_as_fourth_option() {
         //step 1: set initial childless node
-        Node<Integer> initial = head;
-        List<Node<Integer>> children = initial.getChildNodes();
-        while (children.size() > 0 && children.get(0) != null) {
-            initial = children.get(0);
-            children = initial.getChildNodes();
-        }
+        Node<Integer> initial = findChildlessNode(head);
 
         //step 2: ensure initial is the last child
-        int i = indexOfReference(initial);
-        List<Node<Integer>> siblings = initial.getSiblingNodes();
-        while (i != siblings.size() - 1) {
-            siblings.remove(siblings.size() - 1);
-        }
+        trimTo(initial);
 
         //step 3: ensure parent does NOT have next sibling
         Node<Integer> parent = initial.getParentNode();
-        List<Node<Integer>> parSiblings = parent.getSiblingNodes();
-        parSiblings = parSiblings.subList(0, indexOfReference(parent));
+        trimTo(parent);
 
         //step 4: ensure grandparent has next sibling
         Node<Integer> grandParent = parent.getParentNode();
-        i = indexOfReference(grandParent);
-        List<Node<Integer>> gparSiblings = parent.getSiblingNodes();
-        if (i == gparSiblings.size() - 1) {
-            gparSiblings.add(new TestNode<>(-1, parent.getParentNode(), null));
-        }
-
-        //set expected
-        Node<Integer> expected = gparSiblings.get(i + 1);
+        Node<Integer> expected = getNextOrAdd(grandParent);
 
         //test
         Node<Integer> next = initIterator(initial);
