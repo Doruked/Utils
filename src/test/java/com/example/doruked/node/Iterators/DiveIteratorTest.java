@@ -38,9 +38,9 @@ public class DiveIteratorTest {
     @Test
     public void test_next_returns_child_0_as_first_option() {
         Node<Integer> initial = head;
-        Node<Integer> next = initIterator(initial);
+        Node<Integer> expected = initial.getChildNodes().get(0);
 
-        assertEquals(initial.getChildNodes().get(0), next);
+        verifyExpected(initial, expected);
     }
 
     @Test
@@ -52,8 +52,7 @@ public class DiveIteratorTest {
         Node<Integer> expected = getNextOrAdd(initial);
 
         //test
-        Node<Integer> next = initIterator(initial);
-        assertEquals(expected, next);
+        verifyExpected(initial, expected);
     }
 
     @Test
@@ -69,8 +68,7 @@ public class DiveIteratorTest {
         Node<Integer> expected = getNextOrAdd(parent);
 
         //test
-        Node<Integer> next = initIterator(initial);
-        assertEquals(expected, next);
+        verifyExpected(initial, expected);
     }
 
     @Test
@@ -90,8 +88,7 @@ public class DiveIteratorTest {
         Node<Integer> expected = getNextOrAdd(grandParent);
 
         //test
-        Node<Integer> next = initIterator(initial);
-        assertEquals(expected, next);
+        verifyExpected(initial, expected);
     }
 
     @Test
@@ -140,6 +137,11 @@ public class DiveIteratorTest {
 
     private <T> int indexOfReference(Node<T> reference) {
         return ListUtil.getReferenceIndex(reference.getSiblingNodes(), reference);
+    }
+
+    private  void verifyExpected(Node<Integer> initial, Node<Integer> expected){
+        Node<Integer> next = initIterator(initial);
+        assertEquals(expected, next);
     }
 
 }
