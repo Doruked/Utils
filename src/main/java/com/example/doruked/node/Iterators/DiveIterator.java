@@ -56,6 +56,9 @@ public class DiveIterator<TNode extends Basic.CompatibleNode<?, TNode>> implemen
             target = helperNextSibling(current);
             if (target != null) return helperSetNext(target);
 
+            //check if parent exists
+            if(parent == null) return helperSetNext(null);
+
             //AU + 1
             target = helperNextSibling(parent);
             if (target != null) return helperSetNext(target);
