@@ -41,6 +41,7 @@ public class DiveIterator<TNode extends Basic.CompatibleNode<?, TNode>> implemen
     /** {@inheritDoc} */
     @Override
     public TNode next() {
+        if(next == null) throw new NoSuchElementException();
         TNode current = next;
         TNode parent = current.getParentNode();
         TNode target;
