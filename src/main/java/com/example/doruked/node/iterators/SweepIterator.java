@@ -206,7 +206,7 @@ public class SweepIterator<T> implements NodeIterator<Node<T>> {
      * @param <T> the data contained by nodes
      * @return a new node iterator
      */
-    public static <T> Iterator<Node<T>> fromCurrent(Node<T> first, SweepIterator.RemoveOption option){
+    public static <T> SweepIterator<T> fromCurrent(Node<T> first, SweepIterator.RemoveOption option){
         SweepIterator<T> iterator = new SweepIterator<>(first, option);
         iterator.setStartedFromHead();
         return iterator;
@@ -221,7 +221,7 @@ public class SweepIterator<T> implements NodeIterator<Node<T>> {
      * @param <T> the data contained by nodes
      * @return a new node iterator
      */
-    public static <T> Iterator<Node<T>> fromHead(Node<T> treeMember, SweepIterator.RemoveOption option){
+    public static <T> SweepIterator<T> fromHead(Node<T> treeMember, SweepIterator.RemoveOption option){
         SweepIterator<T> iterator = new SweepIterator<>(treeMember.getTreeHeadNode(), option);
         iterator.setStartedFromHead();
         return iterator;
@@ -235,7 +235,7 @@ public class SweepIterator<T> implements NodeIterator<Node<T>> {
      * @param <T> the data contained by nodes
      * @return a new node iterator
      */
-    public static <T> Iterator<Node<T>> fromHead(Node<T> treeMember){
+    public static <T> SweepIterator<T> fromHead(Node<T> treeMember){
         return fromHead(treeMember, SweepIterator.RemoveOption.NORMAL);
     }
 
@@ -246,7 +246,7 @@ public class SweepIterator<T> implements NodeIterator<Node<T>> {
      * @param <T> the data contained by nodes
      * @return a new node iterator
      */
-    public static <T> Iterator<Node<T>> fromCurrent(Node<T> first) {
+    public static <T> SweepIterator<T> fromCurrent(Node<T> first) {
         return fromCurrent(first, SweepIterator.RemoveOption.NORMAL);
     }
 
