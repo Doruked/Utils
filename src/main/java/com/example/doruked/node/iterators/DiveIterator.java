@@ -1,4 +1,4 @@
-package com.example.doruked.node.Iterators;
+package com.example.doruked.node.iterators;
 
 import com.example.doruked.ListUtil;
 import com.example.doruked.node.Basic;

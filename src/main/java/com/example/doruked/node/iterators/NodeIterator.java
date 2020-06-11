@@ -1,4 +1,4 @@
-package com.example.doruked.node.Iterators;
+package com.example.doruked.node.iterators;
 
 import java.util.Iterator;
 

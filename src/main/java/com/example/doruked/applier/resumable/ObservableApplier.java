@@ -7,7 +7,7 @@ import com.example.doruked.Effect;
 import com.example.doruked.exceptions.ExecutionExceptionStamped;
 import com.example.doruked.exceptions.InterruptedExceptionStamped;
 import com.example.doruked.node.CompatibleNode;
-import com.example.doruked.node.Iterators.DiveIterator;
+import com.example.doruked.node.iterators.DiveIterator;
 import com.example.doruked.NullChecker;
 import com.example.doruked.responder.rolledcontext.SleepContext;
 import com.example.doruked.responder.SlimMediator;
