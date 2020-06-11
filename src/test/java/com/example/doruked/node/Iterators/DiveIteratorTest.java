@@ -93,10 +93,6 @@ public class DiveIteratorTest {
     }
 
     @Test
-    public void hasNext() {
-    }
-
-    @Test
     public void test_hasNext_returns_false_when_next_does_not_exist() {
         TestNode<Integer> single = new TestNode<>(0, null, new ArrayList<>());
         iterator = new DiveIterator<>(single);
@@ -109,10 +105,6 @@ public class DiveIteratorTest {
     public void test_that_clearData_is_Unsupported() {
         initIterator(head);
         iterator.clearData();
-    }
-
-    @Test
-    public void clearData() {
     }
 
 
