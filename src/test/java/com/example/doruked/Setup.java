@@ -210,6 +210,10 @@ public abstract class Setup<TNode extends Node<TData>, TData> {
             return children;
         }
 
+        public void setParent(Node<T> parent){
+            this.parent = parent;
+        }
+
 //unsupported
 
         /**
