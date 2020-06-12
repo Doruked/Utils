@@ -34,34 +34,9 @@ public class SweepIterator<T> implements NodeIterator<Node<T>> {
         this.option = option;
     }
 
-    @Override  //lettered order might not matter, but it is ordered with what's more likely to be true in mind
+    @Override
     public boolean hasNext() {
-        //wouldn't this get changed to, if current != null (because current = next)
-
-        //A.) if I have children
-        List<Node<T>> children = current.getChildNodes();
-        if(notEmpty(children)) return true;
-
-        //B.) if I'm not the last sibling
-        List<Node<T>> siblings = current.getSiblingNodes(); //can this produce null?
-        if (siblings.indexOf(current) < siblings.size() - 1) return true;
-
-        //C.) if my siblings have children
-        for(Node<T> n: siblings){
-            children = n.getChildNodes();
-            if(notEmpty(children)) return true;
-        }
-
-        //D.) if my parent's younger siblings have children (younger = to the right)
-        Node<T> parent = current.getParentNode();
-        if(parent != null){
-            siblings = parent.getSiblingNodes();
-            for(Node<T> n: siblings){
-                children = n.getChildNodes();
-                if(notEmpty(children)) return true;
-            }
-        }
-        return false;
+        return current != null;
     }
 
     /**
