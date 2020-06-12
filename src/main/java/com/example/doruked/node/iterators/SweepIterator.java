@@ -67,10 +67,11 @@ public class SweepIterator<T> implements NodeIterator<Node<T>> {
     /**
      * {@inheritDoc}
      *
-     * @throws NullPointerException if the next position is determined to be null
+     * @throws NullPointerException if the current position is null
      */
     @Override
     public Node<T> next() {
+        if(current == null) throw new NoSuchElementException();
         Node<T> next = null;
 
 
@@ -123,7 +124,7 @@ public class SweepIterator<T> implements NodeIterator<Node<T>> {
                 return next;
             }//else = tree only contains 1 node...no next element
         }
-        throw new NoSuchElementException();
+        return setNext(null);
     }
 
     /**
