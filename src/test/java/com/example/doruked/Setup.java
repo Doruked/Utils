@@ -177,7 +177,7 @@ public abstract class Setup<TNode extends Node<TData>, TData> {
 
         @Override
         protected Node<T> helperAddChild(Node<T> child, int index) {
-            return null;
+          throw new UnsupportedOperationException("This method is not implemented yet");
         }
 
         @Override
