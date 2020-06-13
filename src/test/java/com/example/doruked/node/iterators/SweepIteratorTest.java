@@ -121,7 +121,6 @@ public class SweepIteratorTest {
         assertEquals(expected, count.get());
     }
 
-
     @Test
     public void test_that_next_creates_a_visit_count_that_equals_the_tree_size() {
         AtomicInteger count = new AtomicInteger();
