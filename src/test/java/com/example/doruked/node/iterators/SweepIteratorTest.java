@@ -39,7 +39,6 @@ public class SweepIteratorTest {
         verifyExpected(initial, expected);
     }
 
-    //another test to check if it doesn't skip?
     @Test
     public void test_that_next_goes_to_a_siblings_first_child_as_second_option() {
         //set initial to last child
@@ -103,18 +102,6 @@ public class SweepIteratorTest {
         //test
         verifyExpected(initial, expected);
     }
-
-
-//    @Test
-//    public void test_that_next_goes_to_a_parents_sibling_child_as_third_option() {
-//            //set initial to last child
-//            Node<Integer> head = SweepIteratorTest.head;
-//            List<Node<Integer>> children = head.getChildNodes();
-//            if(children.size() < 1) {
-//                children.add(new Setup.TestNode<>(-1, head, new ArrayList<>()));
-//            }
-//            Node<Integer> initial = children.get(children.size() - 1);
-//    }
 
     @Test
     public void test_that_traversal_iterates_an_amount_equal_to_the_remaining_nodes_from_its_specified_start(){
