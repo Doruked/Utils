@@ -409,7 +409,7 @@ public final class ListUtil {
      * @implNote the method mutates the specified {@code list}
      * @throws NullPointerException if the list or supplier is null
      */
-    public static <T> List<T> addAmount(List<T> list, int amount, Supplier<? extends T> sup){
+    public static <T> List<T> addSupplied(List<T> list, int amount, Supplier<? extends T> sup){
        return addAmount(list,amount, sup.get());
     }
 
@@ -436,8 +436,8 @@ public final class ListUtil {
      * @implNote exceptions thrown in {@link List#add(Object)} apply to this method
      * @throws NullPointerException if the list or supplier is null
      */
-    public static <T> List<T> addAmount(List<T> list, int amount, Supplier<? extends T> sup, boolean reevaluate){
-        if(!reevaluate)return addAmount(list,amount,sup);
+    public static <T> List<T> addSupplied(List<T> list, int amount, Supplier<? extends T> sup, boolean reevaluate){
+        if(!reevaluate)return addSupplied(list,amount,sup);
         else {
             if (helperCheckAmount(amount)) {
                 for (int i = 0; i < amount; i++) {
