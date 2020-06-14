@@ -51,7 +51,11 @@ public interface IteratorTest {
      *
      * @implSpec the required methods to implement may grow if {@code IteratorTest}
      * acquires more methods.
+     * @deprecated this interface is somewhat redundant with {@link Default} and may be less preferred.
+     * The reason being, it results in more code given that implementors must implement new, albeit easier
+     * methods. Also, intellij does not run(afaik) inherited tests, when running the class that inherits them.
      */
+    @Deprecated
     interface IDefault<TData, TIterator extends NodeIterator<Node<TData>>> extends IteratorTest {
 
 
