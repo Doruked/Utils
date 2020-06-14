@@ -4,29 +4,35 @@ import com.example.doruked.Setup;
 import com.example.doruked.Setup.TestNode;
 import com.example.doruked.node.iterators.SweepIterator.RemoveOption;
 import com.example.doruked.node.mynodes.Node;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class SweepIteratorTest {
+public class SweepIteratorTest implements  IteratorTest{
 
     private static SweepIterator<Integer> iterator;
     private static TestNode<Integer> head;
     private static Setup.Int treeGenerator;
-
+    private static Default<Integer, SweepIterator<Integer>> defaults;
 
     @Before
     public void setUp() throws Exception {
         treeGenerator = new Setup.Int();
         treeGenerator.createTree();
         head = treeGenerator.getHead();
+        defaults = new Default<>(iterator, treeGenerator, SweepIterator::fromCurrent);
     }
+
+    @After
+    public void tearDown(){
+        iterator = null; //prevent iterator re-use
+    }
+
 
     @Test
     public void test_that_next_goes_to_next_sibling_as_first_option() {
@@ -104,62 +110,44 @@ public class SweepIteratorTest {
     }
 
     @Test
-    public void test_that_traversal_iterates_an_amount_equal_to_the_remaining_nodes_from_its_specified_start(){
+    @Override
+    public void test_that_next_creates_a_visit_count_that_equals_the_tree_size() {
+        defaults.test_that_next_creates_a_visit_count_that_equals_the_tree_size();
+    }
+
+    @Test
+    @Override
+    public void test_hasNext_is_true_at_a_count_equal_to_the_tree_size() {
+        defaults.test_hasNext_is_true_at_a_count_equal_to_the_tree_size();
+    }
+
+    @Test
+    @Override
+    public void test_that_next_visits_every_node() {
+        defaults.test_that_next_visits_every_node();
+    }
+
+    @Test
+    @Override
+    public void test_that_traversal_iterates_an_amount_equal_to_the_remaining_nodes_from_its_specified_start() {
         List<Node<Integer>> layerOne = head.getChildNodes();
-        Node<Integer> initial = layerOne.get(layerOne.size() -1);
+        Node<Integer> initial = layerOne.get(layerOne.size() - 1);
 
         int skip = layerOne.size() + 1 - 1; // +1 because a child will be starting location, -1 because skips head
         int treeSize = treeSize();
         int expected = treeSize - skip;
 
-        SweepIterator<Integer> it = SweepIterator.fromCurrent(initial);
-        AtomicInteger count = new AtomicInteger();
-        Supplier<Boolean> condition = notExceedSize(count,treeSize);
-        Consumer<Node<Integer>> ignore = e -> { };
-
-        helper_iterate_if_condition(it, count, condition, ignore);
-        assertEquals(expected, count.get());
+        defaults.helperTest_that_traversal_iterates_an_amount_equal_to_the_remaining_nodes_from_its_specified_start
+        (initial, expected);
     }
 
     @Test
-    public void test_that_next_creates_a_visit_count_that_equals_the_tree_size() {
-        AtomicInteger count = new AtomicInteger();
-        Supplier<Boolean> condition = notExceedSize(count, treeSize());
-
-        helperTest_iteration_of_all_members_by_condition(count, condition);
+    @Override
+    public void test_hasNext_returns_false_when_there_is_not_a_next_node() {
+        defaults.test_hasNext_returns_false_when_there_is_not_a_next_node();
     }
 
-    @Test
-    public void test_hasNext_is_true_at_a_count_equal_to_the_tree_size() {
-        AtomicInteger counter = new AtomicInteger();
-        Supplier<Boolean> condition = () -> iterator.hasNext();
-
-        helperTest_iteration_of_all_members_by_condition(counter, condition);
-    }
-
-    /**
-     * @implNote testing strategy relies on each node containing unique data
-     */
-    @Test
-    public void test_that_next_visits_every_node() {
-        AtomicInteger count = new AtomicInteger();
-        Set<Integer> visited = new HashSet<>();
-        List<Node<Integer>> failed = new ArrayList<>();
-
-        Supplier<Boolean> condition = notExceedSize(count, treeSize());
-
-        Consumer<Node<Integer>> verify = next -> {
-            Integer id = next.getData();
-            if (!visited.add(id)) failed.add(next);
-        };
-
-        helper_iterate_if_condition(count, condition, verify);
-
-        assertEquals(0, failed.size());
-    }
-
-//helpers
-
+    //helpers
 
     private int treeSize(){
        return treeGenerator.getTree().size();
@@ -199,43 +187,6 @@ public class SweepIteratorTest {
         }
 
         return firstChild;
-    }
-
-    private void helperTest_iteration_of_all_members_by_condition(AtomicInteger counter, Supplier<Boolean> condition) {
-        //setup
-        int size = treeGenerator.getTree().size();
-        Consumer<Node<Integer>> ignore = e -> { };
-
-        //test
-        helper_iterate_if_condition(counter, condition, ignore);
-        assertEquals(size, counter.get());
-    }
-
-    private void helper_iterate_if_condition(AtomicInteger count, Supplier<Boolean> condition, Consumer<Node<Integer>> examineNode) {
-        SweepIterator<Integer> it = SweepIterator.fromCurrent(head);
-        helper_iterate_if_condition(it, count,condition,examineNode);
-    }
-
-    private void helper_iterate_if_condition(SweepIterator<Integer> it, AtomicInteger count, Supplier<Boolean> condition, Consumer<Node<Integer>> examineNode) {
-        iterator = it;
-        try {
-            while (condition.get()) {
-                Node<Integer> next = iterator.next();
-                examineNode.accept(next);
-                count.incrementAndGet();
-            }
-        } catch (NoSuchElementException e) {
-            //iterator traversed all nodes. expected exception
-        }
-    }
-
-    /**
-     * @implSpec allows count to be bigger than size to an extent, so it can be
-     * checked later whether more was counted than it should
-     */
-    private Supplier<Boolean> notExceedSize(AtomicInteger count, int size) {
-        int tooBig = size + 5;
-        return () -> count.get() < tooBig;
     }
 
 }

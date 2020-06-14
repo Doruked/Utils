@@ -4,13 +4,15 @@ import com.example.doruked.ListUtil;
 import com.example.doruked.Setup;
 import com.example.doruked.Setup.TestNode;
 import com.example.doruked.node.mynodes.Node;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * @implNote
@@ -18,22 +20,29 @@ import static org.junit.Assert.*;
  * As such, tests not only require that the expected node was located in a specific scenario,
  * but that the method exited without throwing an {@code exception} in a subsequent call.
  */
-public class DiveIteratorTest {
+public class DiveIteratorTest implements IteratorTest {
 
     private static TestNode<Integer> head;
     private static List<TestNode<Integer>> tree;
     private static Setup<TestNode<Integer>, Integer> treeGenerator;
     private static DiveIterator<Node<Integer>> iterator;
     private static Node<Integer> use;
+    private static Default<Integer, DiveIterator<Node<Integer>>> defaults;
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void before() throws Exception{
         treeGenerator = new Setup.Int();
         treeGenerator.createTree();
 
         head = treeGenerator.getHead();
         use = head.getChild(0);
         tree = treeGenerator.getTree();
+        defaults = new Default<>(iterator, treeGenerator, DiveIterator::new);
+    }
+
+    @After
+    public void tearDown(){
+        iterator = null; //prevent iterator re-use
     }
 
     @Test
@@ -105,6 +114,49 @@ public class DiveIteratorTest {
     public void test_that_clearData_is_Unsupported() {
         initIterator(head);
         iterator.clearData();
+    }
+
+    @Test
+    @Override
+    public void test_that_next_visits_every_node() {
+        defaults.test_that_next_visits_every_node();
+    }
+
+    @Test
+    @Override
+    public void test_that_next_creates_a_visit_count_that_equals_the_tree_size() {
+        defaults.test_that_next_creates_a_visit_count_that_equals_the_tree_size();
+    }
+
+    @Test
+    @Override
+    public void test_that_traversal_iterates_an_amount_equal_to_the_remaining_nodes_from_its_specified_start() {
+        List<Node<Integer>> layerOne = head.getChildNodes();
+        Node<Integer> initial = layerOne.get(layerOne.size() - 1);
+
+        //calculate remaining
+        int expected = 1; //+1 for starting node
+        List<Node<Integer>> myChildren = initial.getChildNodes();
+        myChildren.clear();
+        int amount = 4;
+        ListUtil.addSupplied(myChildren, amount, ()-> new TestNode<>(-1, initial, null), true);
+        expected = expected + amount;
+
+        //test
+        defaults.helperTest_that_traversal_iterates_an_amount_equal_to_the_remaining_nodes_from_its_specified_start
+        (initial, expected);
+    }
+
+    @Test
+    @Override
+    public void test_hasNext_returns_false_when_there_is_not_a_next_node() {
+        defaults.test_hasNext_returns_false_when_there_is_not_a_next_node();
+    }
+
+    @Test
+    @Override
+    public void test_hasNext_is_true_at_a_count_equal_to_the_tree_size() {
+        defaults.test_hasNext_is_true_at_a_count_equal_to_the_tree_size();
     }
 
 
